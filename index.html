@@ -27,10 +27,10 @@
   <body>
     <h1>暗算ゲーム</h1>
 
-    <p>画面に映る2つの数を足した下一桁目の数を教えてね！15回正解したタイムを計るよ！</p>
+    <p>画面に映る2つの数を足した数を教えてね！15回正解したタイムを計るよ！</p>
 
     <div class="form">
-      <label for="guessField">下一桁を入力: </label>
+      <label for="guessField">足した数を入力: </label>
       <input type="text" id="guessField" class="guessField">
       <input type="submit" value="送信" class="guessSubmit">
     </div>
@@ -43,45 +43,37 @@
 
     <script>
 
-      // Your JavaScript goes here
-      let randomNumber = Math.floor(Math.random() * 100) + 1;
-
 const guesses = document.querySelector('.guesses');
 const lastResult = document.querySelector('.lastResult');
-const lowOrHi = document.querySelector('.lowOrHi');
+const correcting = document.querySelector('.correcting');
 
 const guessSubmit = document.querySelector('.guessSubmit');
 const guessField = document.querySelector('.guessField');
 
-let guessCount = 1;
+let correctCount = 0;
 let resetButton;
 
 function checkGuess() {
-  let userGuess = Number(guessField.value);
-  if (guessCount === 1) {
-    guesses.textContent = '前回の予想: ';
-  }
-  guesses.textContent += userGuess + ' ';
-
-  if (userGuess === randomNumber) {
-    lastResult.textContent = 'おめでとう! 正解です!';
-    lastResult.style.backgroundColor = 'green';
-    lowOrHi.textContent = '';
-    setGameOver();
-  } else if (guessCount === 10) {
-    lastResult.textContent = '!!!ゲームオーバー!!!';
-    setGameOver();
-  } else {
-    lastResult.textContent = '間違いです!';
-    lastResult.style.backgroundColor = 'red';
-    if(userGuess < randomNumber) {
-      lowOrHi.textContent='今の予想は小さすぎです!' ;
-    } else if(userGuess > randomNumber) {
-      lowOrHi.textContent = '今の予想は大きすぎです!';
+  while(correctCount < 15){
+    let randomNumber1 = Math.floor(Math.random() * 10);
+    let randomNumber2 = Math.floor(Math.random() * 10);
+    guesses.textContent = randomNumber1 + ' ' + randomNumber2;
+    let userGuess = Number(guessField.value);
+    if (correctCount === 0){
+      correcting.textContent = '正解数: ';
+    }
+    if (userGuess === randomNumber1 + randomNumber2) {
+      lastResult.textContent = '正解！';
+      lastResult.style.backgroundColor = 'green';
+      correctCount += 1;
+      correcting.textContent += correctCount + ' ';
+    } else {
+      lastResult.textContent = '間違いです!';
+      lastResult.style.backgroundColor = 'red';
     }
   }
+  setGameOver();
 
-  guessCount++;
   guessField.value = '';
   guessField.focus();
 }
@@ -111,8 +103,6 @@ function resetGame() {
   guessField.focus();
 
   lastResult.style.backgroundColor = 'white';
-
-  randomNumber = Math.floor(Math.random() * 100) + 1;
 }
     </script>
   </body>
