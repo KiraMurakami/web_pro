@@ -54,16 +54,14 @@ let correctCount = 0;
 let resetButton;
 
 function checkGuess() {
-  let randomNumber1 = Math.floor(Math.random() * 10);
-  let randomNumber2 = Math.floor(Math.random() * 10);
-  guesses.textContent = randomNumber1 + ' ' + randomNumber2;
-  if (correctCount === 0){
-    correcting.textContent = '正解数: ';
-  }
   while(correctCount < 15){
-    randomNumber1 = Math.floor(Math.random() * 10);
-    randomNumber2 = Math.floor(Math.random() * 10);
+    let randomNumber1 = Math.floor(Math.random() * 10);
+    let randomNumber2 = Math.floor(Math.random() * 10);
+    guesses.textContent = randomNumber1 + ' ' + randomNumber2;
     let userGuess = Number(guessField.value){
+    if (correctCount === 0){
+      correcting.textContent = '正解数: ';
+    }
     if (userGuess === randomNumber1 + randomNumber2) {
       lastResult.textContent = '正解！';
       lastResult.style.backgroundColor = 'green';
@@ -105,8 +103,6 @@ function resetGame() {
   guessField.focus();
 
   lastResult.style.backgroundColor = 'white';
-  let randomNumber1 = Math.floor(Math.random() * 10);
-  let randomNumber2 = Math.floor(Math.random() * 10);
 }
     </script>
   </body>
